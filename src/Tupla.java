@@ -1,10 +1,10 @@
 public class Tupla {
     private int linha;
     private int coluna;
-    private double valor;
+    private int valor;
 
     // Construtor completo
-    public Tupla(int linha, int coluna, double valor) {
+    public Tupla(int linha, int coluna, int valor) {
         this.linha = linha;
         this.coluna = coluna;
         this.valor = valor;
@@ -19,7 +19,7 @@ public class Tupla {
         return coluna;
     }
 
-    public double getValor() {
+    public int getValor() {
         return valor;
     }
 
@@ -32,7 +32,7 @@ public class Tupla {
         this.coluna = coluna;
     }
 
-    public void setValor(double valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
 
@@ -53,7 +53,7 @@ public class Tupla {
         Tupla tupla = (Tupla) obj;
         return linha == tupla.linha &&
                 coluna == tupla.coluna &&
-                Double.compare(tupla.valor, valor) == 0;
+                valor == tupla.valor;
     }
 
     @Override
