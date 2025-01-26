@@ -23,7 +23,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de geração em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de geração em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
             System.out.println("Fase 2 inserção ,remoção e busca");
 
             for (int i = 0; i < 10; i++)
@@ -41,9 +41,9 @@ public class Main
                 endTime = System.nanoTime();
                 totalTime3 += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de inserção em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
-            System.out.println("--Tempo médio de busca em nanosegundos: " + totalTime2/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime2/ 1_000_000.0 + " ms");
-            System.out.println("--Tempo médio de remoção em nanosegundos: " + totalTime3/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime3/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de inserção em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
+            System.out.println("--Tempo médio de busca em nanosegundos: " + totalTime2/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime2/ 10000000 + " ms");
+            System.out.println("--Tempo médio de remoção em nanosegundos: " + totalTime3/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime3/ 10000000 + " ms");
 
             System.out.println("Fase 3 representação e verificaçoes");
             //Representa vazia
@@ -57,7 +57,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Vazia em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Vazia em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             //criando e verificando matriz diagonal
             for (int i = 0; i < n; i++)
@@ -73,7 +73,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Diagonal em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Diagonal em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             if(n<=10)System.out.println("É Matriz Simetrica?:"+matrizEsparsaEstatica.ehSimetrica());
             for (int i = 0; i < 10; i++)
@@ -83,7 +83,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Simetrica em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Simetrica em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             matrizEsparsaEstatica.inicializarMatrizVazia();
             //criando e verificando matriz Linha
@@ -100,7 +100,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Linha em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Linha em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             //criando e verificando matriz Coluna
             matrizEsparsaEstatica.inicializarMatrizVazia();
@@ -117,7 +117,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Coluna em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Coluna em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             //criando e verificando triangular inferior
             for (int i = 0; i < n; i++) {
@@ -134,13 +134,13 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Triangular inferior em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Triangular inferior em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             //criando e verificando triangular superior
             matrizEsparsaEstatica.inicializarMatrizVazia();
             for (int i = 0; i < n; i++) {
                 for (int j = i; j < n; j++) {
-                    matrizEsparsaEstatica.inserirElemento(i,j,3);
+                    matrizEsparsaEstatica.inserirElemento(i,j,1);
                 }
             }
             if(n<=10)matrizEsparsaEstatica.imprimirMatriz();
@@ -152,36 +152,39 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Triangular Superior em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Triangular Superior em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
             System.out.println("Fase 4 soma,multiplicação e transposição");
             for (int i = 0; i < 10; i++)
             {
                 long startTime = System.nanoTime();
-                matrizEsparsaEstatica.somar(matrizEsparsaEstatica.getMatriz());
+                if(i<9)matrizEsparsaEstatica.somar(matrizEsparsaEstatica.getMatriz());
+                else matrizEsparsaEstatica.setMatriz(matrizEsparsaEstatica.somar(matrizEsparsaEstatica.getMatriz()));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            if (n<=10)matrizEsparsaEstatica.imprimirMatriz(matrizEsparsaEstatica.somar(matrizEsparsaEstatica.getMatriz()));
+            if (n<=10)matrizEsparsaEstatica.imprimirMatriz();
 
-            System.out.println("--Tempo médio de soma em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de soma em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
             for (int i = 0; i < 10; i++)
             {
                 long startTime = System.nanoTime();
-                matrizEsparsaEstatica.multiplicar(matrizEsparsaEstatica.getMatriz());
+                if(i<9)matrizEsparsaEstatica.multiplicar(matrizEsparsaEstatica.getMatriz());
+                else matrizEsparsaEstatica.setMatriz(matrizEsparsaEstatica.multiplicar(matrizEsparsaEstatica.getMatriz()));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            if (n<=10)matrizEsparsaEstatica.imprimirMatriz(matrizEsparsaEstatica.multiplicar(matrizEsparsaEstatica.getMatriz()));
-            System.out.println("--Tempo médio de multiplicação em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            if (n<=10)matrizEsparsaEstatica.imprimirMatriz();
+            System.out.println("--Tempo médio de multiplicação em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
             for (int i = 0; i < 10; i++)
             {
                 long startTime = System.nanoTime();
-                matrizEsparsaEstatica.setMatriz(matrizEsparsaEstatica.transpor());
+                if(i<9)matrizEsparsaEstatica.transpor();
+                else matrizEsparsaEstatica.setMatriz(matrizEsparsaEstatica.transpor());
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            if (n<=10)matrizEsparsaEstatica.imprimirMatriz(matrizEsparsaEstatica.transpor());
-            System.out.println("--Tempo médio de transposição em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            if (n<=10)matrizEsparsaEstatica.imprimirMatriz();
+            System.out.println("--Tempo médio de transposição em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
 
             if (n<=10)System.out.println("Clique Enter para começar os Testes para o tipo Lista");
@@ -201,7 +204,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de geração em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de geração em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
             System.out.println("Fase 2 inserção ,remoção e busca");
             totalTime = 0;
 
@@ -220,9 +223,9 @@ public class Main
                 endTime = System.nanoTime();
                 totalTime3 += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de inserção em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
-            System.out.println("--Tempo médio de busca em nanosegundos: " + totalTime2/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime2/ 1_000_000.0 + " ms");
-            System.out.println("--Tempo médio de remoção em nanosegundos: " + totalTime3/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime3/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de inserção em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
+            System.out.println("--Tempo médio de busca em nanosegundos: " + totalTime2/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime2/ 10000000 + " ms");
+            System.out.println("--Tempo médio de remoção em nanosegundos: " + totalTime3/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime3/ 10000000 + " ms");
 
             System.out.println("Fase 3 representação e verificaçoes");
             //Representa vazia
@@ -236,7 +239,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Vazia em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Vazia em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             //criando e verificando matriz diagonal
             for (int i = 0; i < n; i++)
@@ -252,7 +255,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Diagonal em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Diagonal em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             if(n<=10)System.out.println("É Matriz Simetrica?:"+matrizEsparsaLista.ehSimetrica());
             for (int i = 0; i < 10; i++)
@@ -262,7 +265,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Simetrica em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Simetrica em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             matrizEsparsaLista.inicializarMatrizVazia();
             //criando e verificando matriz Linha
@@ -279,7 +282,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Linha em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Linha em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             //criando e verificando matriz Coluna
             matrizEsparsaLista.inicializarMatrizVazia();
@@ -296,7 +299,7 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Coluna em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Coluna em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             //criando e verificando triangular inferior
             for (int i = 0; i < n; i++) {
@@ -313,13 +316,13 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Triangular inferior em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Triangular inferior em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
 
             //criando e verificando triangular superior
             matrizEsparsaLista.inicializarMatrizVazia();
             for (int i = 0; i < n; i++) {
                 for (int j = i; j < n; j++) {
-                    matrizEsparsaLista.insereElemento(i,j,3);
+                    matrizEsparsaLista.insereElemento(i,j,1);
                 }
             }
             if(n<=10)matrizEsparsaLista.imprimirMatriz();
@@ -331,39 +334,45 @@ public class Main
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            System.out.println("--Tempo médio de verificaçao Triangular Superior em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            System.out.println("--Tempo médio de verificaçao Triangular Superior em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
             System.out.println("Fase 4 soma,multiplicação e transposição");
-           // matrizEsparsaLista= new MatrizEsparsaLista(n);
             for (int i = 0; i < 10; i++)
             {
                 long startTime = System.nanoTime();
-                matrizEsparsaLista.soma(matrizEsparsaLista);
+                if(i<9)matrizEsparsaLista.soma(matrizEsparsaLista.getMatriz());
+                else matrizEsparsaLista.setMatriz(matrizEsparsaLista.soma(matrizEsparsaLista.getMatriz()));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            if(n<=10)matrizEsparsaLista.imprimirMatriz(matrizEsparsaLista.converteParaMatrizEstatica());
-            System.out.println("--Tempo médio de soma em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+
+            if(n<=10)matrizEsparsaLista.imprimirMatriz();
+            System.out.println("--Tempo médio de soma em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
+
             for (int i = 0; i < 10; i++)
             {
                 long startTime = System.nanoTime();
-                matrizEsparsaLista.multiplicar(matrizEsparsaLista);
+                if(i<9)matrizEsparsaLista.multiplicar(matrizEsparsaLista.getMatriz());
+                else matrizEsparsaLista.setMatriz(matrizEsparsaLista.multiplicar(matrizEsparsaLista.getMatriz()));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
 
             }
-            if(n<=10)matrizEsparsaLista.imprimirMatriz(matrizEsparsaLista.converteParaMatrizEstatica());
-            System.out.println("--Tempo médio de multiplicação em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
+            if(n<=10)matrizEsparsaLista.imprimirMatriz();
+            System.out.println("--Tempo médio de multiplicação em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
             for (int i = 0; i < 10; i++)
             {
                 long startTime = System.nanoTime();
-                matrizEsparsaLista.setMatriz(matrizEsparsaLista.transpor());
+                if(i<9)matrizEsparsaLista.transpor(matrizEsparsaLista.getMatriz());
+                else matrizEsparsaLista.setMatriz(matrizEsparsaLista.transpor(matrizEsparsaLista.getMatriz()));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
-            if(n<=10)matrizEsparsaLista.imprimirMatriz(matrizEsparsaLista.converteParaMatrizEstatica());
-            System.out.println("--Tempo médio de transposição em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 1_000_000.0 + " ms");
-            System.out.println("Clique Enter para começar os Testes para o proximo valor de n");
-            scanner.next();
+            if(n<=10)matrizEsparsaLista.imprimirMatriz();
+            System.out.println("--Tempo médio de transposição em nanosegundos: " + totalTime/10 + " ns ;"+"Tempo médio de execução em milissegundos: " + totalTime/ 10000000 + " ms");
+            if(n<=10)System.out.println("Impressão Estilo Lista");
+            if(n<=10)matrizEsparsaLista.imprimeMatriz();
+            if(n>=500)System.out.println("Clique Enter para começar os Testes para o proximo valor de n");
+            if(n>=500)scanner.next();
         }
     }
 }

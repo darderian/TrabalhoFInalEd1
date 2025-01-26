@@ -13,21 +13,23 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
             matriz[i] = new ListaEncadeadaTupla();  // Cria uma nova lista encadeada para a linha
         }
 
-        // Preenche as listas encadeadas com as tuplas
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (matrizEstatica[i][j] != 0) {  // Só adiciona tupla para valores diferentes de zero
-                    Tupla tupla = new Tupla(i, j, matrizEstatica[i][j]);
-                    matriz[i].insere(tupla);  // Insere a tupla na lista correspondente à linha
-                }
-            }
-        }
+        preencherDeMatrizEstatica( matrizEstatica );
     }
 
     public ListaEncadeadaTupla[] getMatriz() {
         return matriz;
     }
-
+    public void preencherDeMatrizEstatica(int[][] matrizEstatica) {
+        int n = matrizEstatica.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrizEstatica[i][j] != 0) {
+                    Tupla tupla = new Tupla(i, j, matrizEstatica[i][j]);
+                    this.matriz[i].insereTupla(tupla);
+                }
+            }
+        }
+    }
     public void setMatriz(ListaEncadeadaTupla[] matrizE)
     {
         matriz = matrizE;
@@ -252,68 +254,95 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
     }
 
     //13 Somar duas matrizes esparsas
-    public MatrizEsparsaLista soma(MatrizEsparsaLista outraMatriz) {
+    public ListaEncadeadaTupla[] soma( ListaEncadeadaTupla[] matrizB) {
         int n = matriz.length;
-        MatrizEsparsaLista resultado = new MatrizEsparsaLista(n);
+        ListaEncadeadaTupla[] resultado = new ListaEncadeadaTupla[n];
 
-        // Adiciona os elementos da primeira matriz
+        // Inicializa as listas encadeadas no resultado
         for (int i = 0; i < n; i++) {
-            Elo p = matriz[i].prim;
-            while (p != null) {
-                resultado.insereElemento(i, p.dados.getColuna(), p.dados.getValor());
-                p = p.prox;
+            resultado[i] = new ListaEncadeadaTupla();
+        }
+
+        // Copia os valores de matrizA para o resultado
+        for (int i = 0; i < n; i++) {
+            Elo atual = matriz[i].prim;
+            while (atual != null) {
+                Tupla novaTupla = new Tupla(atual.dados.getLinha(), atual.dados.getColuna(), atual.dados.getValor());
+                resultado[i].insereTupla(novaTupla);
+                atual = atual.prox;
             }
         }
 
-        // Adiciona os elementos da segunda matriz, somando os valores quando necessário
+        // Soma os valores de matrizB no resultado
         for (int i = 0; i < n; i++) {
-            Elo p = outraMatriz.matriz[i].prim;
-            while (p != null) {
-                // Verifica se já existe um valor na posição (linha, coluna)
-                Elo existente = resultado.matriz[i].buscaElo(p.dados.getColuna());
-                if (existente != null) {
-                    // Atualiza o valor somando os dois valores
-                    existente.dados.setValor(existente.dados.getValor() + p.dados.getValor());
-                } else {
-                    // Insere o novo elemento caso não exista
-                    resultado.insereElemento(i, p.dados.getColuna(), p.dados.getValor());
+            Elo q = matrizB[i].prim; // Percorre os elementos da linha da matrizB
+
+            while (q != null) {
+                int linha = q.dados.getLinha();
+                int coluna = q.dados.getColuna();
+                int valorOutro = q.dados.getValor();
+
+                // Obtém o valor atual na lista do resultado
+                Elo r = resultado[i].prim;
+                boolean encontrado = false;
+
+                while (r != null) {
+                    if (r.dados.getColuna() == coluna) {
+                        // Atualiza o valor com a soma
+                        r.dados.setValor(r.dados.getValor() + valorOutro);
+                        encontrado = true;
+                        break;
+                    }
+                    r = r.prox;
                 }
-                p = p.prox;
+
+                // Se não encontrado, adiciona um novo nó com o valor
+                if (!encontrado) {
+                    resultado[i].insereTupla(new Tupla(linha, coluna, valorOutro));
+                }
+
+                q = q.prox; // Avança para o próximo elemento de matrizB
             }
         }
 
         return resultado;
     }
 
+
     //14 Multiplicar duas matrizes esparsas
-    public MatrizEsparsaLista multiplicar(MatrizEsparsaLista outraMatriz) {
+    public ListaEncadeadaTupla[] multiplicar( ListaEncadeadaTupla[] matrizB) {
         int n = matriz.length;
-        MatrizEsparsaLista resultado = new MatrizEsparsaLista(n);
+        ListaEncadeadaTupla[] resultado = new ListaEncadeadaTupla[n];
+
+        // Inicializa as listas encadeadas no resultado
+        for (int i = 0; i < n; i++) {
+            resultado[i] = new ListaEncadeadaTupla();
+        }
 
         // Verifica se a multiplicação é possível (colunas da primeira = linhas da segunda)
-        if (matriz.length != outraMatriz.matriz.length) {
+        if (matriz.length != matrizB.length) {
             throw new IllegalArgumentException("As matrizes não são compatíveis para multiplicação.");
         }
 
         // Percorre cada linha da primeira matriz
         for (int i = 0; i < n; i++) {
-            Elo p = matriz[i].prim; // Elementos da linha i da primeira matriz
+            Elo p = matriz[i].prim; // Elementos da linha i da matrizA
             while (p != null) {
                 int colunaNaPrimeira = p.dados.getColuna();
                 int valorNaPrimeira = p.dados.getValor();
 
-                // Percorre os elementos da linha correspondente na segunda matriz
-                Elo q = outraMatriz.matriz[colunaNaPrimeira].prim; // Linha da segunda matriz correspondente à coluna da primeira
+                // Percorre os elementos da linha correspondente na matrizB
+                Elo q = matrizB[colunaNaPrimeira].prim; // Linha correspondente na matrizB
                 while (q != null) {
                     int colunaNaSegunda = q.dados.getColuna();
                     int valorNaSegunda = q.dados.getValor();
 
                     // Calcula o produto e soma ao valor atual na matriz resultado
-                    Elo existente = resultado.matriz[i].buscaElo(colunaNaSegunda);
+                    Elo existente = resultado[i].buscaElo(colunaNaSegunda);
                     if (existente != null) {
                         existente.dados.setValor(existente.dados.getValor() + valorNaPrimeira * valorNaSegunda);
                     } else {
-                        resultado.insereElemento(i, colunaNaSegunda, valorNaPrimeira * valorNaSegunda);
+                        resultado[i].insereTupla(new Tupla(i, colunaNaSegunda, valorNaPrimeira * valorNaSegunda));
                     }
 
                     q = q.prox;
@@ -325,20 +354,36 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
         return resultado;
     }
 
-    //15 Obter a matriz transposta
-    public ListaEncadeadaTupla[] transpor() {
-        int n = matriz.length;
-        MatrizEsparsaLista transposta = new MatrizEsparsaLista(n);
 
+    //15 Obter a matriz transposta
+    public ListaEncadeadaTupla[] transpor(ListaEncadeadaTupla[] matriz)
+    {
+        int n = matriz.length;
+        ListaEncadeadaTupla[] transposta = new ListaEncadeadaTupla[n];
+
+        // Inicializa as listas encadeadas da matriz transposta
+        for (int i = 0; i < n; i++) {
+            transposta[i] = new ListaEncadeadaTupla();
+        }
+
+        // Percorre cada linha da matriz original
         for (int i = 0; i < n; i++) {
             Elo p = matriz[i].prim;
+
+            // Para cada tupla na linha, insere na coluna correspondente da transposta
             while (p != null) {
-                transposta.insereElemento(p.dados.getColuna(), p.dados.getLinha(), p.dados.getValor());
-                p = p.prox;
+                int linhaOriginal = i;
+                int colunaOriginal = p.dados.getColuna();
+                int valor = p.dados.getValor();
+
+                // Adiciona o valor na posição transposta
+                transposta[colunaOriginal].insereTupla(new Tupla(colunaOriginal, linhaOriginal, valor));
+
+                p = p.prox; // Avança para o próximo elemento
             }
         }
 
-        return transposta.getMatriz();
+        return transposta; // Retorna a matriz transposta
     }
     public int[][] converteParaMatrizEstatica() {
         int n = matriz.length;

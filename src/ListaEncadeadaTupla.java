@@ -31,60 +31,41 @@ public class ListaEncadeadaTupla {
         return prim == null;
     }
 
-    /* Insere elemento no final da lista. */
-    public void insere(Tupla novo) {
-        Elo p = new Elo(novo); // Cria o novo nó
-        if (prim == null) {    // Verifica se a lista está vazia
-            prim = p;          // O novo nó se torna o primeiro
-        } else {
-            Elo q = prim;      // Inicia a busca a partir do primeiro nó
-            while (q.prox != null) { // Percorre a lista até o último nó
-                q = q.prox;
-            }
-            q.prox = p;        // Adiciona o novo nó ao final
-        }
-    }
     public void insereTupla(Tupla novo) {
-        Elo p = new Elo(novo); // Cria o novo nó
+        Elo novoElo = new Elo(novo);
 
+        // Caso a lista esteja vazia
         if (prim == null) {
-            // Se a lista estiver vazia, o novo nó se torna o primeiro
-            prim = p;
+            prim = novoElo;
+            return;
+        }
+
+        Elo atual = prim;
+        Elo anterior = null;
+
+        // Percorre a lista para encontrar a posição correta
+        while (atual != null) {
+            if (atual.dados.getLinha() == novo.getLinha() && atual.dados.getColuna() == novo.getColuna()) {
+                // Atualiza o valor se já existir uma tupla com a mesma posição
+                atual.dados.setValor(novo.getValor());
+                return;
+            } else if (atual.dados.getColuna() > novo.getColuna()) {
+                // Encontra a posição de inserção
+                break;
+            }
+            anterior = atual;
+            atual = atual.prox;
+        }
+
+        // Insere o novo elo na posição correta
+        if (anterior == null) {
+            // Insere no início
+            novoElo.prox = prim;
+            prim = novoElo;
         } else {
-            Elo q = prim;
-            boolean inserido = false;
-
-            // Percorre a lista até encontrar a posição correta para inserção ou atualização
-            while (q != null) {
-                // Verifica se a tupla já existe (mesmas coordenadas)
-                if (q.dados.getLinha() == novo.getLinha() && q.dados.getColuna() == novo.getColuna()) {
-                    // Se encontrar a tupla com as mesmas coordenadas, atualiza o valor
-                    q.dados.setValor(novo.getValor());
-                    inserido = true; // Tupla já foi atualizada
-                    break; // Não precisa continuar o loop
-                }
-
-                // Se o índice de coluna da tupla atual é maior que o índice de coluna da nova tupla,
-                // ou se encontramos o final da lista (q.prox == null), insira a nova tupla
-                if (q.dados.getColuna() > novo.getColuna() || q.prox == null) {
-                    // Insere o novo nó na posição correta
-                    if (q.prox == null) {
-                        q.prox = p; // Insere no final da lista
-                    } else {
-                        p.prox = q.prox; // O próximo do novo nó será o próximo do q
-                        q.prox = p;      // O próximo de q será o novo nó
-                    }
-                    inserido = true;
-                    break;
-                }
-
-                q = q.prox; // Avança para o próximo elo
-            }
-
-            // Caso a tupla não tenha sido inserida ou atualizada, ela será adicionada no final da lista
-            if (!inserido && q == null) {
-                q.prox = p; // Caso tenha chegado ao final da lista e não tenha sido inserido
-            }
+            // Insere entre `anterior` e `atual`
+            anterior.prox = novoElo;
+            novoElo.prox = atual;
         }
     }
 
