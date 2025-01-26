@@ -54,8 +54,7 @@ public class MatrizEsparsaEstatica {
     // 3. Buscar um elemento
     public boolean buscarElemento(int linha, int coluna,int valor) {
         validarIndices(linha, coluna);
-        if (valor == matriz[linha][coluna]) return true;
-        return false;
+        return valor == matriz[linha][coluna];
     }
 
 
@@ -131,6 +130,7 @@ public class MatrizEsparsaEstatica {
             for (int j = 0; j < colunas; j++) {
                 if (matriz[i][j] != 0) {
                     contemElemento = true;
+                    break;
                 }
             }
             if (contemElemento) {
@@ -154,6 +154,7 @@ public class MatrizEsparsaEstatica {
             for (int i = 0; i < linhas; i++) {
                 if (matriz[i][j] != 0) {
                     contemElemento = true;
+                    break;
                 }
             }
             if (contemElemento) {
