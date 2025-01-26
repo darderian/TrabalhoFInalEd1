@@ -44,7 +44,60 @@ public class ListaEncadeadaTupla {
             q.prox = p;        // Adiciona o novo nó ao final
         }
     }
+    public void insereTupla(Tupla novo) {
+        Elo p = new Elo(novo); // Cria o novo nó
 
+        if (prim == null) {
+            // Se a lista estiver vazia, o novo nó se torna o primeiro
+            prim = p;
+        } else {
+            Elo q = prim;
+            boolean inserido = false;
+
+            // Percorre a lista até encontrar a posição correta para inserção ou atualização
+            while (q != null) {
+                // Verifica se a tupla já existe (mesmas coordenadas)
+                if (q.dados.getLinha() == novo.getLinha() && q.dados.getColuna() == novo.getColuna()) {
+                    // Se encontrar a tupla com as mesmas coordenadas, atualiza o valor
+                    q.dados.setValor(novo.getValor());
+                    inserido = true; // Tupla já foi atualizada
+                    break; // Não precisa continuar o loop
+                }
+
+                // Se o índice de coluna da tupla atual é maior que o índice de coluna da nova tupla,
+                // ou se encontramos o final da lista (q.prox == null), insira a nova tupla
+                if (q.dados.getColuna() > novo.getColuna() || q.prox == null) {
+                    // Insere o novo nó na posição correta
+                    if (q.prox == null) {
+                        q.prox = p; // Insere no final da lista
+                    } else {
+                        p.prox = q.prox; // O próximo do novo nó será o próximo do q
+                        q.prox = p;      // O próximo de q será o novo nó
+                    }
+                    inserido = true;
+                    break;
+                }
+
+                q = q.prox; // Avança para o próximo elo
+            }
+
+            // Caso a tupla não tenha sido inserida ou atualizada, ela será adicionada no final da lista
+            if (!inserido && q == null) {
+                q.prox = p; // Caso tenha chegado ao final da lista e não tenha sido inserido
+            }
+        }
+    }
+
+    public Elo buscaElo(int coluna) {
+        Elo atual = prim; // Começa do primeiro elemento
+        while (atual != null) {
+            if (atual.dados.getColuna() == coluna) {
+                return atual; // Retorna o Elo encontrado
+            }
+            atual = atual.prox; // Avança para o próximo Elo
+        }
+        return null; // Retorna null se não encontrar
+    }
     /* Verifica se um determinado elemento está na lista. */
     public boolean busca(Tupla elem) {
         Elo p;

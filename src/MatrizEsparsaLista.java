@@ -1,9 +1,11 @@
+import java.util.Random;
+
 public class MatrizEsparsaLista extends ListaEncadeadaTupla{
     private ListaEncadeadaTupla[] matriz;
 
     // Construtor que recebe a matriz esparsa estática gerada e converte para lista encadeada
-    public MatrizEsparsaLista(int[][] matrizEstatica) {
-        int n = matrizEstatica.length;
+    public MatrizEsparsaLista( int n ) {
+        int[][] matrizEstatica= gerarMatrizEsparsa(n);
         matriz = new ListaEncadeadaTupla[n];
 
         // Inicializa cada linha da matriz com uma nova ListaEncadeadaTupla
@@ -22,33 +24,78 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
         }
     }
 
-    // Imprime a matriz esparsa na forma de listas encadeadas
-    public void imprimeMatriz() {
-        for (int i = 0; i < matriz.length; i++) {
-            System.out.print("Linha " + i + ": ");
-            matriz[i].imprime();  // Imprime os elementos da linha
-        }
+    public ListaEncadeadaTupla[] getMatriz() {
+        return matriz;
     }
 
-    // Verifica se um valor específico está presente na matriz
+    public void setMatriz(ListaEncadeadaTupla[] matrizE)
+    {
+        matriz = matrizE;
+    }
+    //1  Insere um novo elemento na matriz
+    public void insereElemento(int linha, int coluna, int valor) {
+        Tupla tupla = new Tupla(linha, coluna, valor);
+        matriz[linha].insereTupla(tupla);
+    }
+    //2 Remove um elemento da matriz
+    public boolean removeElemento(int linha, int coluna, int valor) {
+        Tupla tupla = new Tupla(linha, coluna, valor);
+        return matriz[linha].remove(tupla);
+    }
+    //3 Verifica se um valor específico está presente na matriz
     public boolean buscaElemento(int linha, int coluna, int valor) {
         Tupla tupla = new Tupla(linha, coluna, valor);
         return matriz[linha].busca(tupla);
     }
 
-    // Insere um novo elemento na matriz
-    public void insereElemento(int linha, int coluna, int valor) {
-        Tupla tupla = new Tupla(linha, coluna, valor);
-        matriz[linha].insere(tupla);
+    //4 Imprime a matriz esparsa na forma de listas encadeadas
+    public void imprimeMatriz() {
+        for (int i = 0; i < this.matriz.length; i++) {
+            System.out.print("Linha " + i + ": ");
+            this.matriz[i].imprime();  // Imprime os elementos da linha
+        }
     }
-
-    // Remove um elemento da matriz
-    public boolean removeElemento(int linha, int coluna, int valor) {
-        Tupla tupla = new Tupla(linha, coluna, valor);
-        return matriz[linha].remove(tupla);
+    public void imprimeMatriz(ListaEncadeadaTupla[] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            System.out.print("Linha " + i + ": ");
+            matriz[i].imprime();  // Imprime os elementos da linha
+        }
     }
+    // 4.2 Imprimir a matriz na forma estatica
+    public void imprimirMatriz() {
+        int [][] matrizAux = converteParaMatrizEstatica();
+        if (matrizAux == null || matrizAux.length == 0) {
+            System.out.println("Matriz vazia ou nula.");
+            return;
+        }
 
-    // Verifica se a matriz é vazia
+        for (int[] linha : matrizAux) {
+            for (int elemento : linha) {
+                System.out.print(elemento + "\t");
+            }
+            System.out.println();
+        }
+    }
+    public void imprimirMatriz(int [][] matrizAux) {
+
+        if (matrizAux == null || matrizAux.length == 0) {
+            System.out.println("Matriz vazia ou nula.");
+            return;
+        }
+
+        for (int[] linha : matrizAux) {
+            for (int elemento : linha) {
+                System.out.print(elemento + "\t");
+            }
+            System.out.println();
+        }
+    }
+    // 5. Representar uma matriz vazia
+    public void inicializarMatrizVazia()
+    {
+        for (int i = 0; i < matriz.length; i++) {matriz[i] = new ListaEncadeadaTupla();}
+    }
+    // 6 Verifica se a matriz é vazia
     public boolean matrizVazia() {
         for (int i = 0; i < matriz.length; i++) {
             if (!matriz[i].vazia()) {
@@ -58,8 +105,8 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
         return true;
     }
 
-    // Verifica se a matriz é diagonal
-    public boolean isDiagonal() {
+    //7 Verifica se a matriz é diagonal
+    public boolean ehMatrizDiagonal() {
         for (int i = 0; i < matriz.length; i++) {
             Elo p = matriz[i].prim;
             while (p != null) {
@@ -71,56 +118,145 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
         }
         return true;
     }
+    // 8. Verificar se é uma matriz linha
+    public boolean ehMatrizLinha() {
+        // Verifica se a matriz tem apenas uma linha com elementos não nulos.
+        boolean encontrouLinhaComElementos = false;
+        int linhaComElementos = -1;
 
-    // Verifica se a matriz é triangular inferior
-    public boolean isTriangularInferior() {
+        // Percorre cada linha da matriz (cada linha é uma lista encadeada)
+        for (int i = 0; i < matriz.length; i++) {
+            Elo p = matriz[i].prim; // Obtém a lista encadeada de tuplas da linha i
+
+            // Se a linha não tem nenhum elemento, continua para a próxima
+            if (p == null) {
+                continue;
+            }
+
+            // Percorre os elementos da linha (tuplas)
+            while (p != null) {
+                int linha = p.dados.getLinha(); // Obtém a linha da tupla
+
+                // Verifica se encontramos um elemento em uma linha
+                if (linhaComElementos == -1) {
+                    // Se não encontrarmos ainda uma linha com elementos, armazena essa linha
+                    linhaComElementos = linha;
+                } else if (linhaComElementos != linha) {
+                    // Se já encontramos uma linha com elementos e a atual é diferente,
+                    // então não é uma matriz linha
+                    return false;
+                }
+
+                p = p.prox; // Avança para o próximo elo
+            }
+        }
+
+        // Se encontramos pelo menos uma linha com elementos, então é uma matriz linha
+        return linhaComElementos != -1;
+    }
+
+    // 9. Verificar se é uma matriz coluna
+    public boolean ehMatrizColuna() {
+        // Verifica se a matriz tem apenas uma coluna com elementos não nulos.
+        boolean encontrouColunaComElementos = false;
+        int colunaComElementos = -1;
+
+        // Percorre cada linha da matriz (cada linha é uma lista encadeada)
+        for (int i = 0; i < matriz.length; i++) {
+            Elo p = matriz[i].prim; // Obtém a lista encadeada de tuplas da linha i
+
+            // Se a linha não tem nenhum elemento, continua para a próxima
+            if (p == null) {
+                continue;
+            }
+
+            // Percorre os elementos da linha (tuplas)
+            while (p != null) {
+                int coluna = p.dados.getColuna(); // Obtém a coluna da tupla
+
+                // Verifica se encontramos um elemento em uma coluna
+                if (colunaComElementos == -1) {
+                    // Se não encontrarmos ainda uma coluna com elementos, armazena essa coluna
+                    colunaComElementos = coluna;
+                } else if (colunaComElementos != coluna) {
+                    // Se já encontramos uma coluna com elementos e a atual é diferente,
+                    // então não é uma matriz coluna
+                    return false;
+                }
+
+                p = p.prox; // Avança para o próximo elo
+            }
+        }
+
+        // Se encontramos pelo menos uma coluna com elementos, então é uma matriz coluna
+        return colunaComElementos != -1;
+    }
+    // 10 Verifica se a matriz é triangular inferior
+    public boolean ehMatrizTriangularInferior() {
         for (int i = 0; i < matriz.length; i++) {
             Elo p = matriz[i].prim;
             while (p != null) {
-                if (p.dados.getColuna() < p.dados.getLinha()) {
+                if (p.dados.getColuna() > p.dados.getLinha()) {
                     return false;  // Se encontrar um elemento fora da parte inferior triangular, retorna falso
                 }
                 p = p.prox;
             }
         }
-        return true;
+        return true;  // Todos os elementos acima da diagonal principal são zero
     }
 
-    // Verifica se a matriz é triangular superior
-    public boolean isTriangularSuperior() {
+    //11 Verifica se a matriz é triangular superior
+    public boolean ehMatrizTriangularSuperior() {
         for (int i = 0; i < matriz.length; i++) {
             Elo p = matriz[i].prim;
             while (p != null) {
-                if (p.dados.getColuna() > p.dados.getLinha()) {
+                if (p.dados.getColuna() < p.dados.getLinha()) {
                     return false;  // Se encontrar um elemento fora da parte superior triangular, retorna falso
                 }
                 p = p.prox;
             }
         }
-        return true;
+        return true;  // Todos os elementos abaixo da diagonal principal são zero
     }
 
-    // Verifica se a matriz é simétrica
-    public boolean isSimetrica() {
+
+    //12 Verifica se a matriz é simétrica
+    public boolean ehSimetrica() {
         for (int i = 0; i < matriz.length; i++) {
             Elo p = matriz[i].prim;
             while (p != null) {
                 int linha = p.dados.getLinha();
                 int coluna = p.dados.getColuna();
-                if (!matriz[coluna].busca(new Tupla(coluna, linha, p.dados.getValor()))) {
-                    return false;  // Se não encontrar o valor simétrico, retorna falso
+                int valor = p.dados.getValor();
+
+                // Verifica se o elemento simétrico existe e tem o mesmo valor
+                Elo q = matriz[coluna].prim;
+                boolean encontrado = false;
+
+                while (q != null) {
+                    if (q.dados.getLinha() == coluna && q.dados.getColuna() == linha && q.dados.getValor() == valor) {
+                        encontrado = true;
+                        break;
+                    }
+                    q = q.prox;
                 }
+
+                if (!encontrado) {
+                    return false; // Não encontrou o elemento simétrico
+                }
+
                 p = p.prox;
             }
         }
-        return true;
+        return true; // Todos os elementos têm correspondência simétrica
     }
 
-    // Somar duas matrizes esparsas
+    //13 Somar duas matrizes esparsas
     public MatrizEsparsaLista soma(MatrizEsparsaLista outraMatriz) {
         int n = matriz.length;
-        MatrizEsparsaLista resultado = new MatrizEsparsaLista(new int[n][n]);
+        MatrizEsparsaLista resultado = new MatrizEsparsaLista(n);
 
+        // Adiciona os elementos da primeira matriz
         for (int i = 0; i < n; i++) {
             Elo p = matriz[i].prim;
             while (p != null) {
@@ -129,50 +265,18 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
             }
         }
 
+        // Adiciona os elementos da segunda matriz, somando os valores quando necessário
         for (int i = 0; i < n; i++) {
             Elo p = outraMatriz.matriz[i].prim;
             while (p != null) {
-                resultado.insereElemento(i, p.dados.getColuna(), p.dados.getValor());
-                p = p.prox;
-            }
-        }
-
-        return resultado;
-    }
-
-    // Multiplicar duas matrizes esparsas
-    public MatrizEsparsaLista multiplicar(MatrizEsparsaLista outraMatriz) {
-        int n = matriz.length;
-        MatrizEsparsaLista resultado = new MatrizEsparsaLista(new int[n][n]);
-
-        // Percorre cada linha da primeira matriz
-        for (int i = 0; i < n; i++) {
-            // Percorre cada tupla na linha i da primeira matriz
-            Elo p = matriz[i].prim;
-            while (p != null) {
-                // Percorre cada coluna da segunda matriz
-                for (int j = 0; j < n; j++) {
-                    // Procura o valor correspondente na segunda matriz (linha j, coluna p.dados.getColuna())
-                    Tupla tuplaNaSegundaMatriz = new Tupla(p.dados.getColuna(), j, 0); // Criamos a tupla com coluna da primeira matriz e linha da segunda
-                    boolean encontrou = false;
-                    Elo q = outraMatriz.matriz[p.dados.getColuna()].prim;  // Percorre a linha da segunda matriz
-                    while (q != null) {
-                        // Verifica se a tupla tem a coluna correspondente
-                        if (q.dados.getColuna() == j) {
-                            int valor = p.dados.getValor() * q.dados.getValor();  // Multiplica os valores
-                            // Insere o resultado na matriz de resultado
-                            resultado.insereElemento(i, j, valor);
-                            encontrou = true;
-                            break;
-                        }
-                        q = q.prox;
-                    }
-
-                    // Se não encontrou a tupla correspondente, continue sem inserir
-                    if (!encontrou && !resultado.buscaElemento(i, j, 0)) {
-                        // Evita a inserção de 0 desnecessário na matriz esparsa
-                        resultado.insereElemento(i, j, 0);
-                    }
+                // Verifica se já existe um valor na posição (linha, coluna)
+                Elo existente = resultado.matriz[i].buscaElo(p.dados.getColuna());
+                if (existente != null) {
+                    // Atualiza o valor somando os dois valores
+                    existente.dados.setValor(existente.dados.getValor() + p.dados.getValor());
+                } else {
+                    // Insere o novo elemento caso não exista
+                    resultado.insereElemento(i, p.dados.getColuna(), p.dados.getValor());
                 }
                 p = p.prox;
             }
@@ -181,10 +285,50 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
         return resultado;
     }
 
-    // Obter a matriz transposta
-    public MatrizEsparsaLista transposta() {
+    //14 Multiplicar duas matrizes esparsas
+    public MatrizEsparsaLista multiplicar(MatrizEsparsaLista outraMatriz) {
         int n = matriz.length;
-        MatrizEsparsaLista transposta = new MatrizEsparsaLista(new int[n][n]);
+        MatrizEsparsaLista resultado = new MatrizEsparsaLista(n);
+
+        // Verifica se a multiplicação é possível (colunas da primeira = linhas da segunda)
+        if (matriz.length != outraMatriz.matriz.length) {
+            throw new IllegalArgumentException("As matrizes não são compatíveis para multiplicação.");
+        }
+
+        // Percorre cada linha da primeira matriz
+        for (int i = 0; i < n; i++) {
+            Elo p = matriz[i].prim; // Elementos da linha i da primeira matriz
+            while (p != null) {
+                int colunaNaPrimeira = p.dados.getColuna();
+                int valorNaPrimeira = p.dados.getValor();
+
+                // Percorre os elementos da linha correspondente na segunda matriz
+                Elo q = outraMatriz.matriz[colunaNaPrimeira].prim; // Linha da segunda matriz correspondente à coluna da primeira
+                while (q != null) {
+                    int colunaNaSegunda = q.dados.getColuna();
+                    int valorNaSegunda = q.dados.getValor();
+
+                    // Calcula o produto e soma ao valor atual na matriz resultado
+                    Elo existente = resultado.matriz[i].buscaElo(colunaNaSegunda);
+                    if (existente != null) {
+                        existente.dados.setValor(existente.dados.getValor() + valorNaPrimeira * valorNaSegunda);
+                    } else {
+                        resultado.insereElemento(i, colunaNaSegunda, valorNaPrimeira * valorNaSegunda);
+                    }
+
+                    q = q.prox;
+                }
+                p = p.prox;
+            }
+        }
+
+        return resultado;
+    }
+
+    //15 Obter a matriz transposta
+    public ListaEncadeadaTupla[] transpor() {
+        int n = matriz.length;
+        MatrizEsparsaLista transposta = new MatrizEsparsaLista(n);
 
         for (int i = 0; i < n; i++) {
             Elo p = matriz[i].prim;
@@ -194,7 +338,7 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
             }
         }
 
-        return transposta;
+        return transposta.getMatriz();
     }
     public int[][] converteParaMatrizEstatica() {
         int n = matriz.length;
@@ -219,5 +363,28 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
         return matrizEstatica;  // Retorna a matriz estática preenchida
     }
 
+    private int[][] gerarMatrizEsparsa(int tamanho) {
+        if (tamanho <= 0) {
+            throw new IllegalArgumentException("O tamanho da matriz deve ser maior que zero.");
+        }
 
+        int[][] matrize = new int[tamanho][tamanho];
+        int totalElementos = tamanho * tamanho;
+        int elementosNaoZero = (int) (totalElementos * 0.4); // 40% dos elementos não serão zero
+        Random random = new Random();
+
+        // Preenche aleatoriamente os 40% de elementos diferentes de zero
+        while (elementosNaoZero > 0) {
+            int linha = random.nextInt(tamanho);
+            int coluna = random.nextInt(tamanho);
+
+            // Apenas insere se o valor na posição atual for zero
+            if (matrize[linha][coluna] == 0) {
+                matrize[linha][coluna] = random.nextInt(10) + 1; // Valores não zero entre 1 e 10
+                elementosNaoZero--;
+            }
+        }
+
+        return matrize;
+    }
 }

@@ -1,12 +1,42 @@
+import java.util.Random;
+
 public class MatrizEsparsaEstatica {
 
     private int[][] matriz;
+    int n;
 
-    // Construtor que inicializa a matriz
-    public MatrizEsparsaEstatica(int[][] matrizGerada) {
-        this.matriz = matrizGerada;
+    // Construtor que inicializa gerando automaticamente
+    public MatrizEsparsaEstatica(int n)
+    {
+        this.n = n;
+        if (n <= 0) {
+            throw new IllegalArgumentException("O tamanho da matriz deve ser maior que zero.");
+        }
+        this.matriz = new int[n][n];
+        int totalElementos = n * n;
+        int elementosNaoZero = (int) (totalElementos * 0.4); // 40% dos elementos não serão zero
+        Random random = new Random();
+
+        // Preenche aleatoriamente os 40% de elementos diferentes de zero
+        while (elementosNaoZero > 0) {
+            int linha = random.nextInt(n);
+            int coluna = random.nextInt(n);
+            // Apenas insere se o valor na posição atual for zero
+            if (this.matriz[linha][coluna] == 0) {
+                this.matriz[linha][coluna] = random.nextInt(10) + 1; // Valores não zero entre 1 e 10
+                elementosNaoZero--;
+            }
+        }
+
     }
 
+    public int[][] getMatriz() {
+        return matriz;
+    }
+    public void setMatriz(int[][] matriz)
+    {
+        this.matriz = matriz;
+    }
     // 1. Inserir um elemento
     public void inserirElemento(int linha, int coluna, int valor) {
         validarIndices(linha, coluna);
@@ -14,31 +44,53 @@ public class MatrizEsparsaEstatica {
     }
 
     // 2. Remover um elemento
-    public void removerElemento(int linha, int coluna) {
+    public int removerElemento(int linha, int coluna) {
         validarIndices(linha, coluna);
+        int valor = matriz[linha][coluna];
         matriz[linha][coluna] = 0;
+        return valor;
     }
 
     // 3. Buscar um elemento
-    public int buscarElemento(int linha, int coluna) {
+    public boolean buscarElemento(int linha, int coluna,int valor) {
         validarIndices(linha, coluna);
-        return matriz[linha][coluna];
+        if (valor == matriz[linha][coluna]) return true;
+        return false;
     }
+
 
     // 4. Imprimir a matriz
     public void imprimirMatriz() {
-        for (int[] linha : matriz) {
-            for (int valor : linha) {
-                System.out.print(valor + "\t");
+        if (this.matriz == null || this.matriz.length == 0) {
+            System.out.println("Matriz vazia ou nula.");
+            return;
+        }
+
+        for (int[] linha : this.matriz) {
+            for (int elemento : linha) {
+                System.out.print(elemento + "\t");
             }
             System.out.println();
         }
     }
+    public void imprimirMatriz(int[][]matriz) {
+        if (matriz == null || matriz.length == 0) {
+            System.out.println("Matriz vazia ou nula.");
+            return;
+        }
 
-    // 5. Representar uma matriz vazia
-    public void inicializarMatrizVazia(int linhas, int colunas) {
-        this.matriz = new int[linhas][colunas];
+        for (int[] linha : matriz) {
+            for (int elemento : linha) {
+                System.out.print(elemento + "\t");
+            }
+            System.out.println();
+        }
     }
+    // 5. Representar uma matriz vazia
+    public void inicializarMatrizVazia() {
+        this.matriz = new int[n][n];
+    }
+
 
     // 6. Verificar se é uma matriz vazia
     public boolean ehMatrizVazia() {
