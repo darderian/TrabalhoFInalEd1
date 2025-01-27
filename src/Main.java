@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.Scanner;
 
 public class Main
@@ -5,7 +6,7 @@ public class Main
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
-        int[] numPontos = {10, 20, 30, 40, 50, 100, 200, 500, 1000, 5000, 10000, 20000, 50000, 100000};
+        int[] numPontos = {/*10, 20, 30, 40, 50, 100, 200, 500,1000, 5000, */ 10000, 20000, 50000, 100000};
         for (int n : numPontos) {
             System.out.println("Matriz Estática\nN=" + n);
             System.out.println("Fase 1 Geração");
@@ -24,11 +25,11 @@ public class Main
 
             for (int i = 0; i < 10; i++) {
                 long startTime = System.nanoTime();
-                matrizEsparsaEstatica.inserirElemento(n - 1, n - 1, 1);
+                matrizEsparsaEstatica.inserirElemento(n - 1, n - 1, new BigInteger("1"));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
                 startTime = System.nanoTime();
-                matrizEsparsaEstatica.buscarElemento(n - 1, n - 1, 1);
+                matrizEsparsaEstatica.buscarElemento(n - 1, n - 1, new BigInteger("1"));
                 endTime = System.nanoTime();
                 totalTime2 += (endTime - startTime);
                 startTime = System.nanoTime();
@@ -55,7 +56,7 @@ public class Main
 
             //criando e verificando matriz diagonal
             for (int i = 0; i < n; i++) {
-                matrizEsparsaEstatica.inserirElemento(i, i, 1);
+                matrizEsparsaEstatica.inserirElemento(i, i, new BigInteger("1"));
             }
             if (n == 10) matrizEsparsaEstatica.imprimirMatriz();
             if (n == 10) System.out.println("É Matriz Diagonal?:" + matrizEsparsaEstatica.ehMatrizDiagonal());
@@ -79,7 +80,7 @@ public class Main
             matrizEsparsaEstatica.inicializarMatrizVazia();
             //criando e verificando matriz Linha
             for (int i = 0; i < n; i++) {
-                matrizEsparsaEstatica.inserirElemento(0, i, 1);
+                matrizEsparsaEstatica.inserirElemento(0, i, new BigInteger("1"));
             }
             if (n == 10) matrizEsparsaEstatica.imprimirMatriz();
             if (n == 10) System.out.println("É Matriz Linha?:" + matrizEsparsaEstatica.ehMatrizLinha());
@@ -94,7 +95,7 @@ public class Main
             //criando e verificando matriz Coluna
             matrizEsparsaEstatica.inicializarMatrizVazia();
             for (int i = 0; i < n; i++) {
-                matrizEsparsaEstatica.inserirElemento(i, 0, 1);
+                matrizEsparsaEstatica.inserirElemento(i, 0, new BigInteger("1"));
             }
             if (n == 10) matrizEsparsaEstatica.imprimirMatriz();
             if (n == 10) System.out.println("É Matriz Coluna?:" + matrizEsparsaEstatica.ehMatrizColuna());
@@ -109,7 +110,7 @@ public class Main
             //criando e verificando triangular inferior
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j <= i; j++) {
-                    matrizEsparsaEstatica.inserirElemento(i, j, 1);
+                    matrizEsparsaEstatica.inserirElemento(i, j, new BigInteger("1"));
                 }
             }
             if (n == 10) matrizEsparsaEstatica.imprimirMatriz();
@@ -127,7 +128,7 @@ public class Main
             matrizEsparsaEstatica.inicializarMatrizVazia();
             for (int i = 0; i < n; i++) {
                 for (int j = i; j < n; j++) {
-                    matrizEsparsaEstatica.inserirElemento(i, j, 1);
+                    matrizEsparsaEstatica.inserirElemento(i, j, new BigInteger("1"));
                 }
             }
             if (n == 10) matrizEsparsaEstatica.imprimirMatriz();
@@ -196,15 +197,15 @@ public class Main
 
             for (int i = 0; i < 10; i++) {
                 long startTime = System.nanoTime();
-                matrizEsparsaLista.insereElemento(n - 1, n - 1, 1);
+                matrizEsparsaLista.insereElemento(n - 1, n - 1, new BigInteger("1"));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
                 startTime = System.nanoTime();
-                matrizEsparsaLista.buscaElemento(n - 1, n - 1, 1);
+                matrizEsparsaLista.buscaElemento(n - 1, n - 1, new BigInteger("1"));
                 endTime = System.nanoTime();
                 totalTime2 += (endTime - startTime);
                 startTime = System.nanoTime();
-                matrizEsparsaLista.removeElemento(n - 1, n - 1, 1);
+                matrizEsparsaLista.removeElemento(n - 1, n - 1, new BigInteger("1"));
                 endTime = System.nanoTime();
                 totalTime3 += (endTime - startTime);
             }
@@ -227,7 +228,7 @@ public class Main
 
             //criando e verificando matriz diagonal
             for (int i = 0; i < n; i++) {
-                matrizEsparsaLista.insereElemento(i, i, 1);
+                matrizEsparsaLista.insereElemento(i, i, new BigInteger("1"));
             }
             if (n == 10) matrizEsparsaLista.imprimirMatriz();
             if (n == 10) System.out.println("É Matriz Diagonal?:" + matrizEsparsaLista.ehMatrizDiagonal());
@@ -251,7 +252,7 @@ public class Main
             matrizEsparsaLista.inicializarMatrizVazia();
             //criando e verificando matriz Linha
             for (int i = 0; i < n; i++) {
-                matrizEsparsaLista.insereElemento(0, i, 1);
+                matrizEsparsaLista.insereElemento(0, i, new BigInteger("1"));
             }
             if (n== 10) matrizEsparsaLista.imprimirMatriz();
             if (n == 10) System.out.println("É Matriz Linha?:" + matrizEsparsaLista.ehMatrizLinha());
@@ -266,7 +267,7 @@ public class Main
             //criando e verificando matriz Coluna
             matrizEsparsaLista.inicializarMatrizVazia();
             for (int i = 0; i < n; i++) {
-                matrizEsparsaLista.insereElemento(i, 0, 1);
+                matrizEsparsaLista.insereElemento(i, 0, new BigInteger("1"));
             }
             if (n == 10) matrizEsparsaLista.imprimirMatriz();
             if (n == 10) System.out.println("É Matriz Coluna?:" + matrizEsparsaLista.ehMatrizColuna());
@@ -281,7 +282,7 @@ public class Main
             //criando e verificando triangular inferior
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j <= i; j++) {
-                    matrizEsparsaLista.insereElemento(i, j, 1);
+                    matrizEsparsaLista.insereElemento(i, j, new BigInteger("1"));
                 }
             }
             if (n == 10) matrizEsparsaLista.imprimirMatriz();
@@ -299,7 +300,7 @@ public class Main
             matrizEsparsaLista.inicializarMatrizVazia();
             for (int i = 0; i < n; i++) {
                 for (int j = i; j < n; j++) {
-                    matrizEsparsaLista.insereElemento(i, j, 1);
+                    matrizEsparsaLista.insereElemento(i, j, new BigInteger("1"));
                 }
             }
             if (n == 10) matrizEsparsaLista.imprimirMatriz();

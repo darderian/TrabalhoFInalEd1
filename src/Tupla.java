@@ -1,10 +1,12 @@
+import java.math.BigInteger;
+
 public class Tupla {
     private int linha;
     private int coluna;
-    private long valor;
+    private BigInteger valor;
 
     // Construtor completo
-    public Tupla(int linha, int coluna, long valor) {
+    public Tupla(int linha, int coluna, BigInteger valor) {
         this.linha = linha;
         this.coluna = coluna;
         this.valor = valor;
@@ -19,7 +21,7 @@ public class Tupla {
         return coluna;
     }
 
-    public long getValor() {
+    public BigInteger getValor() {
         return valor;
     }
 
@@ -32,7 +34,7 @@ public class Tupla {
         this.coluna = coluna;
     }
 
-    public void setValor(long valor) {
+    public void setValor(BigInteger valor) {
         this.valor = valor;
     }
 
