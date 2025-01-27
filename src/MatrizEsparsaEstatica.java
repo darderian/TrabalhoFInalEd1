@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class MatrizEsparsaEstatica {
 
-    private int[][] matriz;
+    private long[][] matriz;
     int n;
 
     // Construtor que inicializa gerando automaticamente
@@ -12,7 +12,7 @@ public class MatrizEsparsaEstatica {
         if (n <= 0) {
             throw new IllegalArgumentException("O tamanho da matriz deve ser maior que zero.");
         }
-        this.matriz = new int[n][n];
+        this.matriz = new long[n][n];
         int totalElementos = n * n;
         int elementosNaoZero = (int) (totalElementos * 0.4); // 40% dos elementos não serão zero
         Random random = new Random();
@@ -30,29 +30,29 @@ public class MatrizEsparsaEstatica {
 
     }
 
-    public int[][] getMatriz() {
+    public long[][] getMatriz() {
         return matriz;
     }
-    public void setMatriz(int[][] matriz)
+    public void setMatriz(long[][] matriz)
     {
         this.matriz = matriz;
     }
     // 1. Inserir um elemento
-    public void inserirElemento(int linha, int coluna, int valor) {
+    public void inserirElemento(int linha, int coluna, long valor) {
         validarIndices(linha, coluna);
         matriz[linha][coluna] = valor;
     }
 
     // 2. Remover um elemento
-    public int removerElemento(int linha, int coluna) {
+    public long removerElemento(int linha, int coluna) {
         validarIndices(linha, coluna);
-        int valor = matriz[linha][coluna];
+        long valor = matriz[linha][coluna];
         matriz[linha][coluna] = 0;
         return valor;
     }
 
     // 3. Buscar um elemento
-    public boolean buscarElemento(int linha, int coluna,int valor) {
+    public boolean buscarElemento(int linha, int coluna,long valor) {
         validarIndices(linha, coluna);
         return valor == matriz[linha][coluna];
     }
@@ -65,21 +65,21 @@ public class MatrizEsparsaEstatica {
             return;
         }
 
-        for (int[] linha : this.matriz) {
-            for (int elemento : linha) {
+        for (long[] linha : this.matriz) {
+            for (long elemento : linha) {
                 System.out.print(elemento + "\t");
             }
             System.out.println();
         }
     }
-    public void imprimirMatriz(int[][]matriz) {
+    public void imprimirMatriz(long[][]matriz) {
         if (matriz == null || matriz.length == 0) {
             System.out.println("Matriz vazia ou nula.");
             return;
         }
 
-        for (int[] linha : matriz) {
-            for (int elemento : linha) {
+        for (long[] linha : matriz) {
+            for (long elemento : linha) {
                 System.out.print(elemento + "\t");
             }
             System.out.println();
@@ -87,14 +87,14 @@ public class MatrizEsparsaEstatica {
     }
     // 5. Representar uma matriz vazia
     public void inicializarMatrizVazia() {
-        this.matriz = new int[n][n];
+        this.matriz = new long[n][n];
     }
 
 
     // 6. Verificar se é uma matriz vazia
     public boolean ehMatrizVazia() {
-        for (int[] linha : matriz) {
-            for (int valor : linha) {
+        for (long[] linha : matriz) {
+            for (long valor : linha) {
                 if (valor != 0) {
                     return false;
                 }
@@ -216,11 +216,11 @@ public class MatrizEsparsaEstatica {
     }
 
     // 13. Somar duas matrizes esparsas
-    public int[][] somar(int[][] outraMatriz) {
+    public long[][] somar(long[][] outraMatriz) {
         validarDimensoes(matriz, outraMatriz);
         int linhas = matriz.length;
         int colunas = matriz[0].length;
-        int[][] resultado = new int[linhas][colunas];
+        long[][] resultado = new long[linhas][colunas];
 
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunas; j++) {
@@ -231,14 +231,14 @@ public class MatrizEsparsaEstatica {
     }
 
     // 14. Multiplicar duas matrizes esparsas
-    public int[][] multiplicar(int[][] outraMatriz) {
+    public long[][] multiplicar(long[][] outraMatriz) {
         if (matriz[0].length != outraMatriz.length) {
             throw new IllegalArgumentException("Dimensões incompatíveis para multiplicação.");
         }
 
         int linhas = matriz.length;
         int colunasOutra = outraMatriz[0].length;
-        int[][] resultado = new int[linhas][colunasOutra];
+        long[][] resultado = new long[linhas][colunasOutra];
 
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunasOutra; j++) {
@@ -251,10 +251,10 @@ public class MatrizEsparsaEstatica {
     }
 
     // 15. Obter a matriz transposta
-    public int[][] transpor() {
+    public long[][] transpor() {
         int linhas = matriz.length;
         int colunas = matriz[0].length;
-        int[][] transposta = new int[colunas][linhas];
+        long[][] transposta = new long[colunas][linhas];
 
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunas; j++) {
@@ -272,7 +272,7 @@ public class MatrizEsparsaEstatica {
     }
 
     // Validação de dimensões para operações
-    private void validarDimensoes(int[][] matriz1, int[][] matriz2) {
+    private void validarDimensoes(long[][] matriz1, long[][] matriz2) {
         if (matriz1.length != matriz2.length || matriz1[0].length != matriz2[0].length) {
             throw new IllegalArgumentException("As matrizes devem ter as mesmas dimensões.");
         }

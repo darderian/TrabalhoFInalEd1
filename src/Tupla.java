@@ -1,10 +1,10 @@
 public class Tupla {
     private int linha;
     private int coluna;
-    private int valor;
+    private long valor;
 
     // Construtor completo
-    public Tupla(int linha, int coluna, int valor) {
+    public Tupla(int linha, int coluna, long valor) {
         this.linha = linha;
         this.coluna = coluna;
         this.valor = valor;
@@ -19,7 +19,7 @@ public class Tupla {
         return coluna;
     }
 
-    public int getValor() {
+    public long getValor() {
         return valor;
     }
 
@@ -32,7 +32,7 @@ public class Tupla {
         this.coluna = coluna;
     }
 
-    public void setValor(int valor) {
+    public void setValor(long valor) {
         this.valor = valor;
     }
 

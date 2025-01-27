@@ -5,7 +5,7 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
 
     // Construtor que recebe a matriz esparsa estática gerada e converte para lista encadeada
     public MatrizEsparsaLista( int n ) {
-        int[][] matrizEstatica= gerarMatrizEsparsa(n);
+        long[][] matrizEstatica= gerarMatrizEsparsa(n);
         matriz = new ListaEncadeadaTupla[n];
 
         // Inicializa cada linha da matriz com uma nova ListaEncadeadaTupla
@@ -19,7 +19,7 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
     public ListaEncadeadaTupla[] getMatriz() {
         return matriz;
     }
-    public void preencherDeMatrizEstatica(int[][] matrizEstatica) {
+    public void preencherDeMatrizEstatica(long[][] matrizEstatica) {
         int n = matrizEstatica.length;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -35,17 +35,17 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
         matriz = matrizE;
     }
     //1  Insere um novo elemento na matriz
-    public void insereElemento(int linha, int coluna, int valor) {
+    public void insereElemento(int linha, int coluna, long valor) {
         Tupla tupla = new Tupla(linha, coluna, valor);
         matriz[linha].insereTupla(tupla);
     }
     //2 Remove um elemento da matriz
-    public boolean removeElemento(int linha, int coluna, int valor) {
+    public boolean removeElemento(int linha, int coluna, long valor) {
         Tupla tupla = new Tupla(linha, coluna, valor);
         return matriz[linha].remove(tupla);
     }
     //3 Verifica se um valor específico está presente na matriz
-    public boolean buscaElemento(int linha, int coluna, int valor) {
+    public boolean buscaElemento(int linha, int coluna, long valor) {
         Tupla tupla = new Tupla(linha, coluna, valor);
         return matriz[linha].busca(tupla);
     }
@@ -65,28 +65,28 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
     }
     // 4.2 Imprimir a matriz na forma estatica
     public void imprimirMatriz() {
-        int [][] matrizAux = converteParaMatrizEstatica();
+        long [][] matrizAux = converteParaMatrizEstatica();
         if (matrizAux == null || matrizAux.length == 0) {
             System.out.println("Matriz vazia ou nula.");
             return;
         }
 
-        for (int[] linha : matrizAux) {
-            for (int elemento : linha) {
+        for (long[] linha : matrizAux) {
+            for (long elemento : linha) {
                 System.out.print(elemento + "\t");
             }
             System.out.println();
         }
     }
-    public void imprimirMatriz(int [][] matrizAux) {
+    public void imprimirMatriz(long [][] matrizAux) {
 
         if (matrizAux == null || matrizAux.length == 0) {
             System.out.println("Matriz vazia ou nula.");
             return;
         }
 
-        for (int[] linha : matrizAux) {
-            for (int elemento : linha) {
+        for (long[] linha : matrizAux) {
+            for (long elemento : linha) {
                 System.out.print(elemento + "\t");
             }
             System.out.println();
@@ -229,7 +229,7 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
             while (p != null) {
                 int linha = p.dados.getLinha();
                 int coluna = p.dados.getColuna();
-                int valor = p.dados.getValor();
+                long valor = p.dados.getValor();
 
                 // Verifica se o elemento simétrico existe e tem o mesmo valor
                 Elo q = matriz[coluna].prim;
@@ -280,7 +280,7 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
             while (q != null) {
                 int linha = q.dados.getLinha();
                 int coluna = q.dados.getColuna();
-                int valorOutro = q.dados.getValor();
+                long valorOutro = q.dados.getValor();
 
                 // Obtém o valor atual na lista do resultado
                 Elo r = resultado[i].prim;
@@ -329,13 +329,13 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
             Elo p = matriz[i].prim; // Elementos da linha i da matrizA
             while (p != null) {
                 int colunaNaPrimeira = p.dados.getColuna();
-                int valorNaPrimeira = p.dados.getValor();
+                long valorNaPrimeira = p.dados.getValor();
 
                 // Percorre os elementos da linha correspondente na matrizB
                 Elo q = matrizB[colunaNaPrimeira].prim; // Linha correspondente na matrizB
                 while (q != null) {
                     int colunaNaSegunda = q.dados.getColuna();
-                    int valorNaSegunda = q.dados.getValor();
+                    long valorNaSegunda = q.dados.getValor();
 
                     // Calcula o produto e soma ao valor atual na matriz resultado
                     Elo existente = resultado[i].buscaElo(colunaNaSegunda);
@@ -374,7 +374,7 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
             while (p != null) {
                 int linhaOriginal = i;
                 int colunaOriginal = p.dados.getColuna();
-                int valor = p.dados.getValor();
+                long valor = p.dados.getValor();
 
                 // Adiciona o valor na posição transposta
                 transposta[colunaOriginal].insereTupla(new Tupla(colunaOriginal, linhaOriginal, valor));
@@ -385,9 +385,9 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
 
         return transposta; // Retorna a matriz transposta
     }
-    public int[][] converteParaMatrizEstatica() {
+    public long[][] converteParaMatrizEstatica() {
         int n = matriz.length;
-        int[][] matrizEstatica = new int[n][n];  // Inicializa com zeros
+        long[][] matrizEstatica = new long[n][n];  // Inicializa com zeros
 
         // Percorre cada linha da matriz esparsa
         for (int i = 0; i < n; i++) {
@@ -396,7 +396,7 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
             // Percorre as tuplas da lista encadeada da linha
             while (p != null) {
                 int coluna = p.dados.getColuna();
-                int valor = p.dados.getValor();
+                long valor = p.dados.getValor();
 
                 // Registra o valor na posição correta da matriz estática
                 matrizEstatica[i][coluna] = valor;
@@ -408,12 +408,12 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla{
         return matrizEstatica;  // Retorna a matriz estática preenchida
     }
 
-    private int[][] gerarMatrizEsparsa(int tamanho) {
+    private long[][] gerarMatrizEsparsa(int tamanho) {
         if (tamanho <= 0) {
             throw new IllegalArgumentException("O tamanho da matriz deve ser maior que zero.");
         }
 
-        int[][] matrize = new int[tamanho][tamanho];
+        long[][] matrize = new long[tamanho][tamanho];
         int totalElementos = tamanho * tamanho;
         int elementosNaoZero = (int) (totalElementos * 0.4); // 40% dos elementos não serão zero
         Random random = new Random();
