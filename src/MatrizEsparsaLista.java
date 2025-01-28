@@ -294,6 +294,7 @@ public ListaEncadeadaTupla[] multiplicar(ListaEncadeadaTupla[] matrizB) {
     int n = matriz.length;
     ListaEncadeadaTupla[] resultado = new ListaEncadeadaTupla[n];
 
+    // Inicializa o vetor de resultados
     for (int i = 0; i < n; i++) {
         resultado[i] = new ListaEncadeadaTupla();
     }
@@ -303,6 +304,12 @@ public ListaEncadeadaTupla[] multiplicar(ListaEncadeadaTupla[] matrizB) {
     }
 
     for (int i = 0; i < n; i++) {
+        // Array temporário para acumular resultados da linha atual
+        BigInteger[] acumulador = new BigInteger[n];
+        for (int k = 0; k < n; k++) {
+            acumulador[k] = BigInteger.ZERO;
+        }
+
         Elo p = matriz[i].prim;
         while (p != null) {
             int colunaNaPrimeira = p.dados.getColuna();
@@ -313,21 +320,24 @@ public ListaEncadeadaTupla[] multiplicar(ListaEncadeadaTupla[] matrizB) {
                 int colunaNaSegunda = q.dados.getColuna();
                 BigInteger valorNaSegunda = q.dados.getValor();
 
-                Elo existente = resultado[i].buscaElo(colunaNaSegunda);
-                if (existente != null) {
-                    existente.dados.setValor(existente.dados.getValor().add(valorNaPrimeira.multiply(valorNaSegunda)));
-                } else {
-                    resultado[i].insereTupla(new Tupla(i, colunaNaSegunda, valorNaPrimeira.multiply(valorNaSegunda)));
-                }
-
+                // Acumula o valor temporariamente
+                acumulador[colunaNaSegunda] = acumulador[colunaNaSegunda].add(valorNaPrimeira.multiply(valorNaSegunda));
                 q = q.prox;
             }
             p = p.prox;
+        }
+
+        // Insere os valores do acumulador na lista encadeada resultado[i]
+        for (int k = 0; k < n; k++) {
+            if (!acumulador[k].equals(BigInteger.ZERO)) {
+                resultado[i].insereTupla(new Tupla(i, k, acumulador[k]));
+            }
         }
     }
 
     return resultado;
 }
+
 
 //15 Obter a matriz transposta
 public ListaEncadeadaTupla[] transpor(ListaEncadeadaTupla[] matriz) {

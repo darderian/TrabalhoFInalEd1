@@ -246,32 +246,34 @@ public BigInteger[][] somar(BigInteger[][] outraMatriz) {
 
 // 14. Multiplicar duas matrizes esparsas
 public BigInteger[][] multiplicar(BigInteger[][] outraMatriz) {
-    if (matriz[0].length != outraMatriz.length) {
-        throw new IllegalArgumentException("Dimensões incompatíveis para multiplicação.");
-    }
 
-    int linhas = matriz.length;
-    int colunasOutra = outraMatriz[0].length;
-    BigInteger[][] resultado = new BigInteger[linhas][colunasOutra];
+    BigInteger[][] resultado = new BigInteger[n][n];
 
-    // Inicialize todos os elementos com BigInteger.ZERO
-    for (int i = 0; i < linhas; i++) {
-        for (int j = 0; j < colunasOutra; j++) {
+    // Inicializa a matriz resultado com BigInteger.ZERO
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
             resultado[i][j] = BigInteger.ZERO;
         }
     }
 
-    // Multiplicação de matrizes
-    for (int i = 0; i < linhas; i++) {
-        for (int j = 0; j < colunasOutra; j++) {
-            for (int k = 0; k < matriz[0].length; k++) {
-                resultado[i][j] = resultado[i][j].add(matriz[i][k].multiply(outraMatriz[k][j]));
+    // Multiplicação de matrizes esparsas
+    for (int i = 0; i < n; i++) {
+        for (int k = 0; k < n; k++) {
+            if (!matriz[i][k].equals(BigInteger.ZERO)) { // Apenas elementos não nulos
+                for (int j = 0; j < n; j++) {
+                    if (!outraMatriz[k][j].equals(BigInteger.ZERO)) { // Apenas elementos não nulos
+                        resultado[i][j] = resultado[i][j].add(matriz[i][k].multiply(outraMatriz[k][j]));
+                    }
+                }
             }
         }
     }
 
     return resultado;
 }
+
+
+
 
 // 15. Obter a matriz transposta
 public BigInteger[][] transpor() {

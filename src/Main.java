@@ -6,7 +6,7 @@ public class Main
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
-        int[] numPontos = {/*10, 20, 30, 40, 50, 100, 200, 500,1000, 5000, */ 10000, 20000, 50000, 100000};
+        int[] numPontos = { 10,5000};
         for (int n : numPontos) {
             System.out.println("Matriz Estática\nN=" + n);
             System.out.println("Fase 1 Geração");
@@ -153,6 +153,7 @@ public class Main
 
             System.out.println("--Tempo médio de soma em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
             for (int i = 0; i < 10; i++) {
+                System.out.println("iteração:"+i);
                 long startTime = System.nanoTime();
                 if (i < 9) matrizEsparsaEstatica.multiplicar(matrizEsparsaEstatica.getMatriz());
                 else
@@ -163,6 +164,7 @@ public class Main
             if (n == 10) matrizEsparsaEstatica.imprimirMatriz();
             System.out.println("--Tempo médio de multiplicação em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
             for (int i = 0; i < 10; i++) {
+                System.out.println(i);
                 long startTime = System.nanoTime();
                 if (i < 9) matrizEsparsaEstatica.transpor();
                 else matrizEsparsaEstatica.setMatriz(matrizEsparsaEstatica.transpor());
@@ -326,12 +328,12 @@ public class Main
             System.out.println("--Tempo médio de soma em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
 
             for (int i = 0; i < 10; i++) {
+                System.out.println("iteração:"+i);
                 long startTime = System.nanoTime();
                 if (i < 9) matrizEsparsaLista.multiplicar(matrizEsparsaLista.getMatriz());
                 else matrizEsparsaLista.setMatriz(matrizEsparsaLista.multiplicar(matrizEsparsaLista.getMatriz()));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
-
             }
             if (n == 10) matrizEsparsaLista.imprimirMatriz();
             System.out.println("--Tempo médio de multiplicação em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
