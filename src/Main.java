@@ -6,7 +6,7 @@ public class Main
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
-        int[] numPontos = {10,20,30,40,50,100,200,500,1000,10000,20000,50000,100000};
+        int[] numPontos = {10000,20000,50000,100000};
         for (int n : numPontos) {
             System.out.println("Matriz Estática\nN=" + n);
             System.out.println("Fase 1 Geração");
@@ -142,20 +142,21 @@ public class Main
             }
             System.out.println("--Tempo médio de verificaçao Triangular Superior em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
             System.out.println("Fase 4 soma,multiplicação e transposição");
+            if (n > 10)matrizEsparsaEstatica = new MatrizEsparsaEstatica(n);
             for (int i = 0; i < 10; i++) {
                 long startTime = System.nanoTime();
-                if (i < 9) matrizEsparsaEstatica.somar(matrizEsparsaEstatica.getMatriz());
+                if (i < 9||(i==9&&n>10)) matrizEsparsaEstatica.somar(matrizEsparsaEstatica.getMatriz());
                 else matrizEsparsaEstatica.setMatriz(matrizEsparsaEstatica.somar(matrizEsparsaEstatica.getMatriz()));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
             if (n == 10) matrizEsparsaEstatica.imprimirMatriz();
-            if (n > 10)matrizEsparsaEstatica = new MatrizEsparsaEstatica(n);
+
             System.out.println("--Tempo médio de soma em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
             for (int i = 0; i < 10; i++) {
                 System.out.println("iteração de teste:"+i);
                 long startTime = System.nanoTime();
-                if (i < 9) matrizEsparsaEstatica.multiplicar(matrizEsparsaEstatica.getMatriz());
+                if (i < 9||(i==9&&n>10)) matrizEsparsaEstatica.multiplicar(matrizEsparsaEstatica.getMatriz());
                 else
                     matrizEsparsaEstatica.setMatriz(matrizEsparsaEstatica.multiplicar(matrizEsparsaEstatica.getMatriz()));
                 long endTime = System.nanoTime();
@@ -165,7 +166,7 @@ public class Main
             System.out.println("--Tempo médio de multiplicação em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
             for (int i = 0; i < 10; i++) {
                 long startTime = System.nanoTime();
-                if (i < 9) matrizEsparsaEstatica.transpor();
+                if (i < 9||(i==9&&n>10)) matrizEsparsaEstatica.transpor();
                 else matrizEsparsaEstatica.setMatriz(matrizEsparsaEstatica.transpor());
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
@@ -315,22 +316,23 @@ public class Main
             }
             System.out.println("--Tempo médio de verificaçao Triangular Superior em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
             System.out.println("Fase 4 soma,multiplicação e transposição");
+            if (n > 10)matrizEsparsaLista = new MatrizEsparsaLista(n);
             for (int i = 0; i < 10; i++) {
                 long startTime = System.nanoTime();
-                if (i < 9) matrizEsparsaLista.soma(matrizEsparsaLista.getMatriz());
+                if (i < 9||(i==9&&n>10)) matrizEsparsaLista.soma(matrizEsparsaLista.getMatriz());
                 else matrizEsparsaLista.setMatriz(matrizEsparsaLista.soma(matrizEsparsaLista.getMatriz()));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
             }
 
             if (n == 10) matrizEsparsaLista.imprimirMatriz();
-            if (n > 10)matrizEsparsaLista = new MatrizEsparsaLista(n);
+
             System.out.println("--Tempo médio de soma em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
 
             for (int i = 0; i < 10; i++) {
                 System.out.println("iteração de teste:"+i);
                 long startTime = System.nanoTime();
-                if (i < 9) matrizEsparsaLista.multiplicar(matrizEsparsaLista.getMatriz());
+                if (i < 9||(i==9&&n>10)) matrizEsparsaLista.multiplicar(matrizEsparsaLista.getMatriz());
                 else matrizEsparsaLista.setMatriz(matrizEsparsaLista.multiplicar(matrizEsparsaLista.getMatriz()));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
@@ -339,7 +341,7 @@ public class Main
             System.out.println("--Tempo médio de multiplicação em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
             for (int i = 0; i < 10; i++) {
                 long startTime = System.nanoTime();
-                if (i < 9) matrizEsparsaLista.transpor(matrizEsparsaLista.getMatriz());
+                if (i < 9||(i==9&&n>10)) matrizEsparsaLista.transpor(matrizEsparsaLista.getMatriz());
                 else matrizEsparsaLista.setMatriz(matrizEsparsaLista.transpor(matrizEsparsaLista.getMatriz()));
                 long endTime = System.nanoTime();
                 totalTime += (endTime - startTime);
