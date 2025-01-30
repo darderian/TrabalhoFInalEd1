@@ -6,7 +6,7 @@ public class Main
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
-        int[] numPontos = {10000,20000,50000,100000};
+        int[] numPontos = {10,10000,20000,50000,100000};
         for (int n : numPontos) {
             System.out.println("Matriz Estática\nN=" + n);
             System.out.println("Fase 1 Geração");
