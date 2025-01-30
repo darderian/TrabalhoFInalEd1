@@ -2,6 +2,7 @@ import java.math.BigInteger;
 import java.util.Random;
 
 public class MatrizEsparsaEstatica {
+
     private BigInteger[][] matriz;
     int n;
     // Construtor que inicializa gerando automaticamente

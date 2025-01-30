@@ -6,7 +6,7 @@ public class Main
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
-        int[] numPontos = {10,10000,20000,50000,100000};
+        int[] numPontos = {10,20,30,40,50,100,200,500,1000};
         for (int n : numPontos) {
             System.out.println("Matriz Estática\nN=" + n);
             System.out.println("Fase 1 Geração");
@@ -154,7 +154,6 @@ public class Main
 
             System.out.println("--Tempo médio de soma em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
             for (int i = 0; i < 10; i++) {
-                System.out.println("iteração de teste:"+i);
                 long startTime = System.nanoTime();
                 if (i < 9||(i==9&&n>10)) matrizEsparsaEstatica.multiplicar(matrizEsparsaEstatica.getMatriz());
                 else
@@ -241,7 +240,6 @@ public class Main
                 totalTime += (endTime - startTime);
             }
             System.out.println("--Tempo médio de verificaçao Diagonal em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
-
             if (n == 10) System.out.println("É Matriz Simetrica?:" + matrizEsparsaLista.ehSimetrica());
             for (int i = 0; i < 10; i++) {
                 long startTime = System.nanoTime();
@@ -250,7 +248,6 @@ public class Main
                 totalTime += (endTime - startTime);
             }
             System.out.println("--Tempo médio de verificaçao Simetrica em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
-
             matrizEsparsaLista.inicializarMatrizVazia();
             //criando e verificando matriz Linha
             for (int i = 0; i < n; i++) {
@@ -265,7 +262,6 @@ public class Main
                 totalTime += (endTime - startTime);
             }
             System.out.println("--Tempo médio de verificaçao Linha em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
-
             //criando e verificando matriz Coluna
             matrizEsparsaLista.inicializarMatrizVazia();
             for (int i = 0; i < n; i++) {
@@ -330,7 +326,6 @@ public class Main
             System.out.println("--Tempo médio de soma em nanosegundos: " + totalTime / 10 + " ns ;" + "Tempo médio de execução em milissegundos: " + totalTime / 10000000 + " ms");
 
             for (int i = 0; i < 10; i++) {
-                System.out.println("iteração de teste:"+i);
                 long startTime = System.nanoTime();
                 if (i < 9||(i==9&&n>10)) matrizEsparsaLista.multiplicar(matrizEsparsaLista.getMatriz());
                 else matrizEsparsaLista.setMatriz(matrizEsparsaLista.multiplicar(matrizEsparsaLista.getMatriz()));

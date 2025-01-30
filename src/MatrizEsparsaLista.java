@@ -5,35 +5,34 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla {
     private ListaEncadeadaTupla[] matriz;
     // Construtor que recebe a matriz esparsa estática gerada e converte para lista encadeada
     public MatrizEsparsaLista(int n) {
-        BigInteger[][] matrizEstatica = gerarMatrizEsparsa(n);
         matriz = new ListaEncadeadaTupla[n];
         // Inicializa cada linha da matriz com uma nova ListaEncadeadaTupla
         for (int i = 0; i < n; i++) {
             matriz[i] = new ListaEncadeadaTupla();  // Cria uma nova lista encadeada para a linha
         }
-        preencherDeMatrizEstatica(matrizEstatica);
+        preencheMatriz(n);
     }
-    public ListaEncadeadaTupla[] getMatriz() {
-        return matriz;
-    }
-    public void preencherDeMatrizEstatica(BigInteger[][] matrizEstatica) {
-        int n = matrizEstatica.length;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (!matrizEstatica[i][j].equals(BigInteger.ZERO)) {
-                    Tupla tupla = new Tupla(i, j, matrizEstatica[i][j]);
-                    this.matriz[i].insereTupla(tupla);
-                }
-            }
+    public ListaEncadeadaTupla[] getMatriz() {return matriz;}
+    public void setMatriz(ListaEncadeadaTupla[] matrizE) {matriz = matrizE;}
+
+    public void preencheMatriz(int tamanho) {
+        int totalElementos = tamanho * tamanho;
+        int elementosNaoZero = (int) (totalElementos * 0.4); // 40% dos elementos não serão zero
+        Random random = new Random();
+        // Preenche aleatoriamente os 40% de elementos diferentes de zero
+        while (elementosNaoZero > 0)
+        {
+            int linha = random.nextInt(tamanho);
+            int coluna = random.nextInt(tamanho);
+            Tupla tupla = new Tupla(linha, coluna, BigInteger.valueOf(random.nextInt(10) + 1)); // Valores não zero entre 1 e 10)
+            this.matriz[linha].insereTupla(tupla);
+            elementosNaoZero--;
         }
     }
-    public void setMatriz(ListaEncadeadaTupla[] matrizE) {
-        matriz = matrizE;
-    }
+
     //1  Insere um novo elemento na matriz
     public void insereElemento(int linha, int coluna, BigInteger valor) {
-        Tupla tupla = new Tupla(linha, coluna, valor);
-        matriz[linha].insereTupla(tupla);
+        matriz[linha].insereTupla(new Tupla(linha, coluna, valor));
     }
     //2 Remove um elemento da matriz
     public boolean removeElemento(int linha, int coluna, BigInteger valor) {
@@ -47,9 +46,6 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla {
     }
     //4 Imprime a matriz esparsa na forma de listas encadeadas
     public void imprimeMatriz() {
-        imprimeMatriz(matriz);
-    }
-    private void imprimeMatriz(ListaEncadeadaTupla[] matriz) {
         for (int i = 0; i < matriz.length; i++) {
             System.out.print("\nLinha " + (i+1) + ": ");
             matriz[i].imprime();  // Imprime os elementos da linha
@@ -312,35 +308,5 @@ public class MatrizEsparsaLista extends ListaEncadeadaTupla {
             }
         }
         return matrizEstatica;
-    }
-    // Geração da matriz esparsa (apenas uma matriz de exemplo com valores aleatórios)
-    private BigInteger[][] gerarMatrizEsparsa(int tamanho) {
-        if (tamanho <= 0) {
-            throw new IllegalArgumentException("O tamanho da matriz deve ser maior que zero.");
-        }
-        BigInteger[][] matriz = new BigInteger[tamanho][tamanho];
-        int totalElementos = tamanho * tamanho;
-        int elementosNaoZero = (int) (totalElementos * 0.4); // 40% dos elementos não serão zero
-        Random random = new Random();
-        // Preenche aleatoriamente os 40% de elementos diferentes de zero
-        while (elementosNaoZero > 0) {
-            int linha = random.nextInt(tamanho);
-            int coluna = random.nextInt(tamanho);
-
-            // Apenas insere se o valor na posição atual for zero
-            if (matriz[linha][coluna] == null || matriz[linha][coluna].equals(BigInteger.ZERO)) {
-                matriz[linha][coluna] = BigInteger.valueOf(random.nextInt(10) + 1); // Valores não zero entre 1 e 10
-                elementosNaoZero--;
-            }
-        }
-        // Preenche os elementos restantes com zero (se ainda estiverem nulos)
-        for (int i = 0; i < tamanho; i++) {
-            for (int j = 0; j < tamanho; j++) {
-                if (matriz[i][j] == null) {
-                    matriz[i][j] = BigInteger.ZERO;
-                }
-            }
-        }
-        return matriz;
     }
 }

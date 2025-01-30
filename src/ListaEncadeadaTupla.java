@@ -51,42 +51,21 @@ public class ListaEncadeadaTupla {
             novoElo.prox = atual;
         }
     }
-    public Elo buscaElo(int coluna) {
-        Elo atual = prim; // Começa do primeiro elemento
-        while (atual != null) {
-            // Comparação de coluna como inteiro
-            if (atual.dados.getColuna() == coluna) {
-                return atual; // Retorna o Elo encontrado
-            }
-            atual = atual.prox; // Avança para o próximo Elo
-        }
-        return null; // Retorna null se não encontrar
-    }
-    // Verifica se um determinado elemento está na lista
-    public boolean busca(Tupla elem) {
-        Elo p;
-        for (p = prim; p != null; p = p.prox) {
-            if (p.dados.equals(elem)) { // Utiliza equals para comparar os dados
-                return true;
-            }
-        }
-        return false;
-    }
     // Implementação recursiva do método de busca
-    public boolean buscaRecursiva(Tupla elem) {
+    public boolean busca(Tupla elem) {
         if (this.vazia()) {
             return false;
         }
-        return buscaRecursiva(elem, prim);
+        return busca(elem, prim);
     }
-    private boolean buscaRecursiva(Tupla elem, Elo p) {
+    private boolean busca(Tupla elem, Elo p) {
         if (p == null) {
             return false;
         }
         if (p.dados.equals(elem)) { // Utiliza equals para comparar os dados
             return true;
         }
-        return buscaRecursiva(elem, p.prox);
+        return busca(elem, p.prox);
     }
     // Remove da lista o primeiro elemento com valor igual a "elem". Retorna true se removeu
     public boolean remove(Tupla elem) {
