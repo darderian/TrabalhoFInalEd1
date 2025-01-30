@@ -44,11 +44,11 @@ public class MatrizEsparsaEstatica {
         matriz[linha][coluna] = valor;
     }
     // 2. Remover um elemento
-    public BigInteger removerElemento(int linha, int coluna) {
+    public void removerElemento(int linha, int coluna) {
         validarIndices(linha, coluna);
         BigInteger valor = matriz[linha][coluna];
         matriz[linha][coluna] = BigInteger.ZERO; // Definir como zero usando BigInteger.ZERO
-        return valor;
+
     }
     // 3. Buscar um elemento
     public boolean buscarElemento(int linha, int coluna, BigInteger valor) {
